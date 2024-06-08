@@ -1,5 +1,5 @@
 import React from "react"
-import PropTypes from "prop-types"
+
 
 const HelloWorld = (props) => {
   return (
@@ -8,9 +8,5 @@ const HelloWorld = (props) => {
     </div>
   )
 }
-
-HelloWorld.propTypes = {
-  greeting: PropTypes.string
-};
 
 export default HelloWorld

@@ -17,3 +17,7 @@
 .greeting {
   background-color: blue;
 }
+
+#regular-expenses-bar-chart {
+    width: 44%;
+}
