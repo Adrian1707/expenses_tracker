@@ -81,7 +81,7 @@ const Dashboard = (props) => {
           </option>
         ))}
       </select>
-      <BarChart expensesByExpenseDate={expensesByExpenseDate} />
+      <BarChart expensesByExpenseDate={expensesByExpenseDate} month={month} />
       <PieChart expensesByCategory={expensesByCategory} />
       <Table categoryValues={categoryValues} />
     </div>

@@ -32,4 +32,15 @@ class ExpensesController < ApplicationController
     end
   end
 
+  def by_date
+    @expenses = Expense.select("amount, expense_date, categories.title AS category_title", "description", "one_off").joins(:category).where(expense_date: params['date'])
+    @expenses = JSON.parse(@expenses.to_json).map {|h| h.except("id")}
+    @expenses = @expenses.map {|e| e['amount'] = e["amount"].to_s.prepend("£");  e['expense_date'] = Date.parse(e['expense_date']).strftime("%d/%m/%Y"); e}
+    respond_to do |format|
+      format.json { render :json => {
+        expenses_for_date: @expenses,
+      } }
+    end
+  end
+
 end
