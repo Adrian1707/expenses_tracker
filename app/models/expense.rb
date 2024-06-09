@@ -13,6 +13,7 @@ class Expense < ApplicationRecord
     expense_scope = select("amount, expense_date, one_off, categories.title AS category_title")
      .joins(:category)
      .where("DATE_PART('month', expense_date) = ?", month.to_i)
+     .order(:expense_date)
 
     expense_scope = expense_scope.where('expense_date <= ?', Date.today) if Date.current.month == month.to_i
     if chart_type == 'regulars'
@@ -30,6 +31,7 @@ class Expense < ApplicationRecord
     expense_scope = select("amount, expense_date, one_off, categories.title AS category_title")
     .joins(:category)
     .where("DATE_PART('month', expense_date) = ?", month.to_i)
+    .order(:expense_date)
 
     expense_scope = expense_scope.where('expense_date <= ?', Date.today) if Date.current.month == month.to_i
     if chart_type == 'regulars'

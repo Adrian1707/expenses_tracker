@@ -24,7 +24,6 @@ const BarChart = (props) => {
   };
 
   const handleClick = (event) => {
-    console.log("HANDLING CLICK IN BAR CHART")
     fetchData(labels[event.chart.getElementsAtEventForMode(event, 'nearest', { intersect: true }, true)['0'].index])
   };
 
