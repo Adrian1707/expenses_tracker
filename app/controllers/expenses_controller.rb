@@ -2,8 +2,9 @@ class ExpensesController < ApplicationController
 
   def index
     @month = params['month'].present? ? params['month'] : Date.current.month
-    @grouped_expenses_by_expense_date = Expense.current_month_grouped_by_expense_date(@month)
-    grouped_expenses_by_category = Expense.current_month_grouped_by_category(@month)
+    @grouped_expenses_by_expense_date = Expense.current_month_grouped_by_expense_date(@month, params['chart_type'])
+    grouped_expenses_by_category = Expense.current_month_grouped_by_category(@month, params['chart_type'])
+
     monthly_expenses = @grouped_expenses_by_expense_date.values.flatten.sum {|e| e['amount']}
 
     @grouped_by_category_percentages = grouped_expenses_by_category.transform_values do |expenses|

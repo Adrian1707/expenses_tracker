@@ -10,6 +10,7 @@ const Dashboard = (props) => {
   const [expensesByExpenseDate, setExpensesByExpenseDate] = useState(props.expensesByExpenseDate)
   const [expensesByCategory, setExpensesByCategory] = useState(props.expensesByCategory)
   const [categoryValues, setCategoryValues] = useState(props.categoryValues)
+  const [includeOneOffs, setIncludeOneOffs] = useState(false)
 
   const months = [
     { value: '1', label: 'January' },
@@ -29,11 +30,11 @@ const Dashboard = (props) => {
   const handleMonthChange = (event) => {
     const month = event.target.value;
     setMonth(month);
-    fetchData(month);
+    fetchData(month, includeOneOffs);
   };
 
-  const fetchData = (month) => {
-    fetch(`http://localhost:3000/expenses/index?month=${month}`, {
+  const fetchData = (month, chart_type) => {
+    fetch(`http://localhost:3000/expenses/index?month=${month}&chart_type=${chart_type}`, {
       headers: {
         'Accept': 'application/json'
       }
@@ -53,6 +54,17 @@ const Dashboard = (props) => {
 
   return(
     <div>
+        <div className="navigation-tabs">
+        <div className="tab" onClick={() => fetchData(month, 'regulars')}>
+          Regular
+        </div>
+        <div className="tab" onClick={() => fetchData(month, 'totals')}>
+          Total
+        </div>
+        <div className="tab" onClick={() => fetchData(month, 'one_offs')}>
+          One Offs
+        </div>
+        </div>
       {
           <h3>{`Non-accomodation expenses today: £${10}`}</h3>
       }

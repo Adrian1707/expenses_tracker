@@ -18,6 +18,26 @@
   background-color: blue;
 }
 
+.navigation-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Adjust the gap value to increase or decrease the whitespace */
+}
+
+.tab {
+  padding: 10px 20px;
+  background-color: #4BC0C0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 25%;
+  text-align: center;
+}
+
+.tab:hover {
+  background-color: #e0e0e0;
+}
+
 #regular-expenses-bar-chart {
     width: 80%;
     margin-left: 10%;
