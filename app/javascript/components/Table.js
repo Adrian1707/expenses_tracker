@@ -2,7 +2,7 @@ import React from "react"
 
 const Table = (props) => {
   return(
-    <div>
+    <div className="expenses-table">
       <table>
         <thead>
           <tr>

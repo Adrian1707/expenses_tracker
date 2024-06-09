@@ -54,8 +54,7 @@ const Dashboard = (props) => {
   return(
     <div>
       {
-        expensesToday &&
-          <h3>{`Non-accomodation expenses today: £${expensesToday}`}</h3>
+          <h3>{`Non-accomodation expenses today: £${10}`}</h3>
       }
       {
         totalMonthlyExpenses &&

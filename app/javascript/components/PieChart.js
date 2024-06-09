@@ -59,7 +59,9 @@ const Dashboard = (props) => {
   };
 
   return(
-    <Pie data={data} options={options} />
+    <div className='expenses-pie-chart'>
+      <Pie data={data} options={options} />
+    </div>
   )
 
 }

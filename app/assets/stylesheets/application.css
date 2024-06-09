@@ -19,5 +19,44 @@
 }
 
 #regular-expenses-bar-chart {
-    width: 44%;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.expenses-pie-chart {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 10%;
+}
+
+.expenses-table {
+  margin-left: 23%;
+}
+
+table {
+  border-collapse: collapse;
+  text-align: center;
+	vertical-align: middle;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+thead th {
+  width: 25%;
+}
+
+thead {
+  background-color: #333;
+  color: white;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #eee;
 }
