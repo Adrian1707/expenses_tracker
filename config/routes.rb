@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'expenses/index'
   get 'expenses/by_date'
   get 'expenses/by_category'
+  get 'categories/index'
+  post 'expenses/new_expense'
   # Defines the root path route ("/")
   root "expenses#index"
 end

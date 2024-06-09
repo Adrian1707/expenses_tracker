@@ -1,11 +1,8 @@
-<div id='regular-expenses-bar-chart'>
-
-  <%= react_component("Dashboard", {
-    expensesByExpenseDate: @grouped_expenses_by_expense_date,
-    expensesByCategory: @grouped_by_category_percentages,
-    categoryValues: @grouped_by_category_values,
-    expensesToday: @expenses_today,
-    totalMonthlyExpenses: @total_monthly_expenses,
-    month: @month
-  }) %>
-</div>
+<%= react_component("Dashboard", {
+  expensesByExpenseDate: @grouped_expenses_by_expense_date,
+  expensesByCategory: @grouped_by_category_percentages,
+  categoryValues: @grouped_by_category_values,
+  expensesToday: @expenses_today,
+  totalMonthlyExpenses: @total_monthly_expenses,
+  month: @month
+}) %>

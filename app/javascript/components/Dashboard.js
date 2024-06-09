@@ -2,9 +2,11 @@ import React, { useState } from "react"
 import BarChart from './BarChart'
 import PieChart from './PieChart'
 import Table from './Table'
+import ExpenseSubmitModal from './ExpenseSubmitModal'
 
 const Dashboard = (props) => {
   const [month, setMonth] = useState(props.month);
+  const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false)
   const [expensesToday, setExpensesToday] = useState(props.expensesToday)
   const [totalMonthlyExpenses, setTotalMonthlyExpenses] = useState(props.totalMonthlyExpenses)
   const [expensesByExpenseDate, setExpensesByExpenseDate] = useState(props.expensesByExpenseDate)
@@ -53,9 +55,18 @@ const Dashboard = (props) => {
       });
   };
 
+  const openExpenseModal = () => {
+    console.log("AAAHH")
+    setIsExpenseModalOpen(true)
+  }
+
   return(
     <div>
-        <div className="navigation-tabs">
+      <ExpenseSubmitModal isOpen={isExpenseModalOpen} setIsOpen={setIsExpenseModalOpen} />
+      <div className="navigation-tabs">
+        <div className="tab" onClick={() => openExpenseModal()}>
+          New Expense
+        </div>
         <div className={chartType === "regulars" ? "selected-tab" : "tab"} onClick={() => fetchData(month, 'regulars')}>
           Regular
         </div>
@@ -65,25 +76,27 @@ const Dashboard = (props) => {
         <div className={chartType === "one_offs" ? "selected-tab" : "tab"} onClick={() => fetchData(month, 'one_offs')}>
           One Offs
         </div>
-        </div>
-      {
-          <h3>{`Non-accomodation expenses today: £${10}`}</h3>
-      }
-      {
-        totalMonthlyExpenses &&
-        <h3>{`Total monthly expenses so far: £${totalMonthlyExpenses}`} </h3>
-      }
-      <select value={month} onChange={handleMonthChange}>
-        <option value="">Select a month</option>
-        {months.map((month) => (
-          <option key={month.value} value={month.value}>
-            {month.label}
-          </option>
-        ))}
-      </select>
-      <BarChart expensesByExpenseDate={expensesByExpenseDate} month={month} />
-      <PieChart expensesByCategory={expensesByCategory} month={month} />
-      <Table categoryValues={categoryValues} />
+      </div>
+      <div className='regular-expenses-bar-chart'>
+        {
+            <h3>{`Non-accomodation expenses today: £${10}`}</h3>
+        }
+        {
+          totalMonthlyExpenses &&
+          <h3>{`Total monthly expenses so far: £${totalMonthlyExpenses}`} </h3>
+        }
+        <select value={month} onChange={handleMonthChange}>
+          <option value="">Select a month</option>
+          {months.map((month) => (
+            <option key={month.value} value={month.value}>
+              {month.label}
+            </option>
+          ))}
+        </select>
+        <BarChart expensesByExpenseDate={expensesByExpenseDate} month={month} />
+        <PieChart expensesByCategory={expensesByCategory} month={month} />
+        <Table categoryValues={categoryValues} />
+      </div>
     </div>
   )
 

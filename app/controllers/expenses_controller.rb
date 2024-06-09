@@ -1,4 +1,6 @@
 class ExpensesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :null_session
 
   def index
     @month = params['month'].present? ? params['month'] : Date.current.month
@@ -56,6 +58,23 @@ class ExpensesController < ApplicationController
     respond_to do |format|
       format.json { render :json => {
         expenses_for_category: @expenses,
+      } }
+    end
+  end
+
+  def new_expense
+    expense_params = JSON.parse(request.raw_post)
+    Expense.create!(
+      category_id: expense_params['category_id'],
+      amount: expense_params['amount'],
+      expense_date: expense_params['expense_date'],
+      purchase_date: expense_params['purchase_date'],
+      description: expense_params['description'],
+      one_off: expense_params['one_off']
+    )
+    respond_to do |format|
+      format.json { render :json => {
+        success: 'ok',
       } }
     end
   end
