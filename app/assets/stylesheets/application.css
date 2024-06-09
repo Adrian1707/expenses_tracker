@@ -24,7 +24,7 @@
   gap: 20px; /* Adjust the gap value to increase or decrease the whitespace */
 }
 
-.tab {
+.tab, .selected-tab {
   padding: 10px 20px;
   background-color: #4BC0C0;
   border-radius: 20px;
@@ -32,6 +32,10 @@
   transition: background-color 0.3s ease;
   width: 25%;
   text-align: center;
+}
+
+.selected-tab {
+  background-color: #17B169
 }
 
 .tab:hover {

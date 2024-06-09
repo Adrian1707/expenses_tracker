@@ -10,7 +10,7 @@ const Dashboard = (props) => {
   const [expensesByExpenseDate, setExpensesByExpenseDate] = useState(props.expensesByExpenseDate)
   const [expensesByCategory, setExpensesByCategory] = useState(props.expensesByCategory)
   const [categoryValues, setCategoryValues] = useState(props.categoryValues)
-  const [includeOneOffs, setIncludeOneOffs] = useState(false)
+  const [chartType, setChartType] = useState('regulars')
 
   const months = [
     { value: '1', label: 'January' },
@@ -30,11 +30,12 @@ const Dashboard = (props) => {
   const handleMonthChange = (event) => {
     const month = event.target.value;
     setMonth(month);
-    fetchData(month, includeOneOffs);
+    fetchData(month, chartType);
   };
 
-  const fetchData = (month, chart_type) => {
-    fetch(`http://localhost:3000/expenses/index?month=${month}&chart_type=${chart_type}`, {
+  const fetchData = (month, chartType) => {
+    setChartType(chartType)
+    fetch(`http://localhost:3000/expenses/index?month=${month}&chart_type=${chartType}`, {
       headers: {
         'Accept': 'application/json'
       }
@@ -55,13 +56,13 @@ const Dashboard = (props) => {
   return(
     <div>
         <div className="navigation-tabs">
-        <div className="tab" onClick={() => fetchData(month, 'regulars')}>
+        <div className={chartType === "regulars" ? "selected-tab" : "tab"} onClick={() => fetchData(month, 'regulars')}>
           Regular
         </div>
-        <div className="tab" onClick={() => fetchData(month, 'totals')}>
+        <div className={chartType === "totals" ? "selected-tab" : "tab"} onClick={() => fetchData(month, 'totals')}>
           Total
         </div>
-        <div className="tab" onClick={() => fetchData(month, 'one_offs')}>
+        <div className={chartType === "one_offs" ? "selected-tab" : "tab"} onClick={() => fetchData(month, 'one_offs')}>
           One Offs
         </div>
         </div>

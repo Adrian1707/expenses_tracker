@@ -20,7 +20,12 @@ const BarChart = (props) => {
     ],
   };
 
+  const handleClick = (event) => {
+    console.log("HEY")
+  };
+
   const options = {
+    onClick: handleClick,
     scales: {
       x: {
         type: 'category',
