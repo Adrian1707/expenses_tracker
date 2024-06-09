@@ -64,14 +64,38 @@ class ExpensesController < ApplicationController
 
   def new_expense
     expense_params = JSON.parse(request.raw_post)
-    Expense.create!(
-      category_id: expense_params['category_id'],
-      amount: expense_params['amount'],
-      expense_date: expense_params['expense_date'],
-      purchase_date: expense_params['purchase_date'],
-      description: expense_params['description'],
-      one_off: expense_params['one_off']
-    )
+    category = Category.find(expense_params['category_id'])
+    if category.title == 'Accommodation'
+      start_date = DateTime.parse(expense_params['check_in_date'])
+      end_date = DateTime.parse(expense_params['check_out_date'])
+
+      date_array = []
+      current_date = start_date
+
+      while current_date < end_date
+        date_array << current_date.strftime("%Y-%m-%d")
+        current_date = current_date.next_day
+      end
+      date_array.each do |date|
+        Expense.create!(
+          category_id: expense_params['category_id'],
+          amount: expense_params['amount'] / date_array.length,
+          expense_date: date,
+          purchase_date: expense_params['purchase_date'],
+          description: expense_params['description'],
+          one_off: expense_params['one_off']
+        )
+      end
+    else
+      Expense.create!(
+        category_id: expense_params['category_id'],
+        amount: expense_params['amount'],
+        expense_date: expense_params['expense_date'],
+        purchase_date: expense_params['purchase_date'],
+        description: expense_params['description'],
+        one_off: expense_params['one_off']
+      )
+    end
     respond_to do |format|
       format.json { render :json => {
         success: 'ok',

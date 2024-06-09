@@ -4,6 +4,8 @@ const ExpenseModal = (props) => {
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [expenseDate, setExpenseDate] = useState(new Date());
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
   const [purchaseDate, setPurchaseDate] = useState(new Date());
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
@@ -43,6 +45,11 @@ const ExpenseModal = (props) => {
       one_off: oneOffExpense
     }
 
+    if(categoryById(category) == 'Accommodation') {
+      request_data['check_in_date'] = checkInDate.toISOString()
+      request_data['check_out_date'] = checkOutDate.toISOString()
+    }
+
     fetch(`http://localhost:3000/expenses/new_expense`, {
       method: 'POST',
       body: JSON.stringify(request_data),
@@ -64,6 +71,12 @@ const ExpenseModal = (props) => {
   const closeModal = () => {
     props.setIsOpen(false)
   };
+
+  const categoryById = (categoryId) => {
+    const categoryById = categories.find(category => category.id == categoryId);
+    console.log(categoryById)
+    return categoryById ? categoryById.title : undefined;
+  }
 
   return (
     <div>
@@ -92,15 +105,38 @@ const ExpenseModal = (props) => {
                     ))}
                   </select>
                 </div>
-                <div>
-                  <label htmlFor="expenseDate">Expense Date:</label>
-                  <input
-                    type="date"
-                    id="expenseDate"
-                    value={expenseDate.toISOString().split('T')[0]}
-                    onChange={(e) => setExpenseDate(new Date(e.target.value))}
-                  />
-                </div>
+                {categoryById(category) !== 'Accommodation' ? (
+                  <div>
+                    <label htmlFor="expenseDate">Expense Date:</label>
+                    <input
+                      type="date"
+                      id="expenseDate"
+                      value={expenseDate.toISOString().split('T')[0]}
+                      onChange={(e) => setExpenseDate(new Date(e.target.value))}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    <div>
+                      <label htmlFor="checkInDate">Check In Date:</label>
+                      <input
+                        type="date"
+                        id="checkInDate"
+                        value={checkInDate.toISOString().split('T')[0]}
+                        onChange={(e) => setCheckInDate(new Date(e.target.value))}
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="checkOutDate">Check Out Date:</label>
+                      <input
+                        type="date"
+                        id="checkOutDate"
+                        value={checkOutDate.toISOString().split('T')[0]}
+                        onChange={(e) => setCheckOutDate(new Date(e.target.value))}
+                      />
+                    </div>
+                  </>
+                )}
                 <div>
                   <label htmlFor="purchaseDate">Purchase Date:</label>
                   <input
