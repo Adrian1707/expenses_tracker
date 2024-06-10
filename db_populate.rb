@@ -1,5 +1,5 @@
 # FETCH ACCESS TOKEN FROM GOOGLE OAUTH PLAYGROUND
-  session = GoogleDrive::Session::from_access_token("ya29.a0AXooCgvPWA7fG9wZZnYiDYV2-4guTA3rMCy9GI4TAgWvG9GQBa66S_CCvEDENXU0iJq_3rlHMw2sY5FwGw4M74oaWJmdRX_Pe6s1j1Uskv1Fn_bdBAHZFNfJ_2ZTyRM6sJSjuMYgCZlIVHwZ4TflN52Ve29kafykCgNXaCgYKATcSARMSFQHGX2MiQ5NVJ4tvmfXEsK01uWvi_w0171")
+  session = GoogleDrive::Session::from_access_token('')
   sheet = session.spreadsheet_by_key("18ZDftAluqIz-GDXNDfce5TI7BNiOVPqTCmjAdsPEGbk")
   worksheet = sheet.worksheet_by_title("Expenses")
 
@@ -27,6 +27,7 @@
   end
 
   categories = Category.all
+  ActiveRecord::Base.connection.execute("TRUNCATE expenses RESTART IDENTITY")
   worksheet.rows[1..-1].each do |row|
     category_id = categories.find {|c| c.title == row[2]}&.id
     next if category_id.nil?
