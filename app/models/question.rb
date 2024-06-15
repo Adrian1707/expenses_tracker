@@ -5,10 +5,10 @@ class Question
     client = OpenAI::Client.new
     response = client.chat(
       parameters: {
-             model: "gpt-4o", # Required.
-             messages: [{role: 'system', content: initial_prompt}, { role: "user", content: request}], # Required.
-             temperature: 0.7,
-      }
+        model: "gpt-4o",
+        messages: [{role: 'system', content: self.initial_prompt}, { role: "user", content: request}],
+        temperature: 0.7
+      } 
     )
     sql = response.dig("choices", 0, "message", "content")
     raw_sql = sql.gsub("\n", " ")

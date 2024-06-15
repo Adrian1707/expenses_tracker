@@ -139,7 +139,7 @@ tr:nth-child(even) {
 
 /* QUESTION_MODAL */
 
-.question-modal {
+.chat-modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,12 +151,32 @@ tr:nth-child(even) {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.question-modal-content {
+.chat-modal-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 5px;
   position: relative;
   width: 80%;
+  max-width: 600px;
+}
+
+.chat-modal-content-expanded {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: 80%;
+  height: 25%;
+  max-width: 600px;
+}
+
+.chat-modal-content-expanded-with-sql {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  position: relative;
+  width: 80%;
+  height: 50%;
   max-width: 600px;
 }
 

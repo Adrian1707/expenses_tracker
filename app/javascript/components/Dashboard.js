@@ -3,7 +3,7 @@ import BarChart from './BarChart'
 import PieChart from './PieChart'
 import Table from './Table'
 import ExpenseSubmitModal from './ExpenseSubmitModal'
-import QuestionModal from './QuestionModal'
+import ChatModal from './ChatModal'
 
 const Dashboard = (props) => {
   const [month, setMonth] = useState(props.month);
@@ -14,10 +14,10 @@ const Dashboard = (props) => {
   const [expensesByCategory, setExpensesByCategory] = useState(props.expensesByCategory)
   const [categoryValues, setCategoryValues] = useState(props.categoryValues)
   const [chartType, setChartType] = useState('regulars')
-  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false)
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
-  const toggleQuestionModal = useCallback(() => {
-    setIsQuestionModalOpen(!isQuestionModalOpen)
+  const toggleChatModal = useCallback(() => {
+    setIsChatModalOpen(!isChatModalOpen)
   }, []);
 
 
@@ -25,7 +25,7 @@ const Dashboard = (props) => {
     const handleKeyPress = e => {
       if (e.metaKey && e.key === 'k') {
         console.log("HEY")
-        toggleQuestionModal()
+        toggleChatModal()
       }
     }
 
@@ -81,10 +81,18 @@ const Dashboard = (props) => {
     setIsExpenseModalOpen(true)
   }
 
+  const openChatModal = () => {
+   setIsChatModalOpen(true);
+ };
+
+   const closeChatModal = () => {
+     setIsChatModalOpen(false);
+   };
+
   return(
     <div>
       <ExpenseSubmitModal isOpen={isExpenseModalOpen} setIsOpen={setIsExpenseModalOpen} />
-      <QuestionModal isOpen={isQuestionModalOpen} setIsOpen={setIsQuestionModalOpen} />
+      <ChatModal isOpen={isChatModalOpen} onClose={closeChatModal} />
       <div className="navigation-tabs">
         <div className="tab" onClick={() => openExpenseModal()}>
           New Expense

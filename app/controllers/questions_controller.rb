@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   def new
-    answer = Question.ask(params[:question]).stringify_keys
+    convo = params[:conversation].split(",")[0]
+    answer = Question.ask(convo).stringify_keys
     print answer
     respond_to do |format|
       format.json { render :json => {
