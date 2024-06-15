@@ -16,7 +16,7 @@ class Expense < ApplicationRecord
      .order(:expense_date)
 
     expense_scope = expense_scope.where('expense_date < ?', Date.tomorrow) if Date.current.month == month.to_i
-    if chart_type == 'regulars'
+    if chart_type == 'regulars' || chart_type.blank?
       expense_scope = expense_scope.where(one_off: false)
     elsif chart_type == 'totals'
       expense_scope = expense_scope.where(one_off: [true, false])
@@ -34,7 +34,7 @@ class Expense < ApplicationRecord
     .order(:expense_date)
 
     expense_scope = expense_scope.where('expense_date < ?', Date.tomorrow) if Date.current.month == month.to_i
-    if chart_type == 'regulars'
+    if chart_type == 'regulars' || chart_type.blank?
       expense_scope = expense_scope.where(one_off: false)
     elsif chart_type == 'totals'
       expense_scope = expense_scope.where(one_off: [true, false])

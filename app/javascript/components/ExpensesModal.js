@@ -5,8 +5,6 @@ const ExpensesModal = (props) => {
   const [data, setData] = useState(props.data);
 
   useEffect(() => {
-   console.log('useEffect')
-   console.log(props.displayModal)
    setIsOpen(props.displayModal);
    setData(props.data);
  }, [props.data]);

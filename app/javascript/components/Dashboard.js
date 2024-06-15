@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import BarChart from './BarChart'
 import PieChart from './PieChart'
 import Table from './Table'
 import ExpenseSubmitModal from './ExpenseSubmitModal'
+import QuestionModal from './QuestionModal'
 
 const Dashboard = (props) => {
   const [month, setMonth] = useState(props.month);
@@ -13,6 +14,27 @@ const Dashboard = (props) => {
   const [expensesByCategory, setExpensesByCategory] = useState(props.expensesByCategory)
   const [categoryValues, setCategoryValues] = useState(props.categoryValues)
   const [chartType, setChartType] = useState('regulars')
+  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false)
+
+  const toggleQuestionModal = useCallback(() => {
+    setIsQuestionModalOpen(!isQuestionModalOpen)
+  }, []);
+
+
+ useEffect(() => {
+    const handleKeyPress = e => {
+      if (e.metaKey && e.key === 'k') {
+        console.log("HEY")
+        toggleQuestionModal()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyPress)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress)
+    }
+  }, [])
 
   const months = [
     { value: '1', label: 'January' },
@@ -56,13 +78,13 @@ const Dashboard = (props) => {
   };
 
   const openExpenseModal = () => {
-    console.log("AAAHH")
     setIsExpenseModalOpen(true)
   }
 
   return(
     <div>
       <ExpenseSubmitModal isOpen={isExpenseModalOpen} setIsOpen={setIsExpenseModalOpen} />
+      <QuestionModal isOpen={isQuestionModalOpen} setIsOpen={setIsQuestionModalOpen} />
       <div className="navigation-tabs">
         <div className="tab" onClick={() => openExpenseModal()}>
           New Expense
@@ -83,7 +105,7 @@ const Dashboard = (props) => {
         }
         {
           totalMonthlyExpenses &&
-          <h3>{`Total monthly expenses so far: £${totalMonthlyExpenses}`} </h3>
+          <h3>{`Total monthly expenses s far: £${totalMonthlyExpenses}`} </h3>
         }
         <select value={month} onChange={handleMonthChange}>
           <option value="">Select a month</option>
